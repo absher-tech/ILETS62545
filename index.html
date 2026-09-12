@@ -63,7 +63,6 @@ button{border:0;border-radius:10px;padding:14px 20px;font-size:16px;font-weight:
   <button id="arBtn" class="lang-btn active" onclick="setLanguage('ar')">العربية</button>
   <button id="enBtn" class="lang-btn" onclick="setLanguage('en')">English</button>
 </div>
-
 <section id="choicePage" class="form-page active">
 <div class="main-heading" id="mainHeading">اختيار اختبار الآيلتس</div>
 <div class="top-title" id="topTitle">ما هو اختبار الآيلتس الذي ترغب في إجرائه؟</div>
@@ -148,7 +147,6 @@ button{border:0;border-radius:10px;padding:14px 20px;font-size:16px;font-weight:
 <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
 </select>
 <div id="userError" class="error">من فضلك أكمل كل البيانات المطلوبة.</div>
-
 <div class="actions">
 <button class="back" id="backUserBtn" onclick="show('locationPage')">السابق</button>
 <button class="next" id="finishBtn" onclick="finish()">تأكيد وإرسال ✓</button>
@@ -242,7 +240,7 @@ const i18n = {
     generalTitle:"اختبار الآيلتس للتدريب العام",
     generalDesc:"خذ هذا الاختبار إذا كنت ترغب في الدراسة على مستوى أقل من الدرجة أو العمل في أي مكان في العالم.",
     ukviDivider:'امتحان "IELTS" للتأشيرات في المملكة المتحدة',
-    ukviTitle:'امتحان "IELTS" للتأشيرات في المملكة المتحدة UKVI',
+ukviTitle:'امتحان "IELTS" للتأشيرات في المملكة المتحدة UKVI',
     ukviDesc:"وافقت حكومة المملكة المتحدة على اختبارات اللغة الإنجليزية الآمنة لأولئك الذين يحتاجون إلى تأشيرة عمل / زوج، أو الذين يخططون لدراسة دورة دون مستوى الشهادة، أو في مؤسسة بريطانية غير معترف بها من قبل UKVI.",
     locationTitle:"الدولة والمنطقة", locationDesc:"حدد الدولة والمنطقة التي ترغب في التسجيل فيها.",
     countryLabel:"الدولة", regionLabel:"المنطقة / المحافظة",
@@ -300,7 +298,7 @@ const callingCodes = [
   ["+44","المملكة المتحدة","United Kingdom"],
   ["+49","ألمانيا","Germany"],
   ["+33","فرنسا","France"],
-  ["+39","إيطاليا","Italy"],
+["+39","إيطاليا","Italy"],
   ["+34","إسبانيا","Spain"],
   ["+31","هولندا","Netherlands"],
   ["+32","بلجيكا","Belgium"],
@@ -411,7 +409,7 @@ const callingCodes = [
   ["+52","المكسيك","Mexico"],
   ["+54","الأرجنتين","Argentina"],
   ["+56","تشيلي","Chile"],
-  ["+57","كولومبيا","Colombia"],
+["+57","كولومبيا","Colombia"],
   ["+51","بيرو","Peru"],
   ["+58","فنزويلا","Venezuela"],
   ["+591","بوليفيا","Bolivia"],
@@ -502,7 +500,7 @@ const phoneExamples = {
   "+239":"9812345", "+240":"222123456", "+241":"061234567", "+242":"061234567",
   "+243":"812345678", "+244":"923123456", "+245":"955123456", "+246":"3801234",
   "+247":"40123", "+248":"2512345", "+249":"911234567", "+250":"788123456",
-  "+252":"612345678", "+253":"77123456", "+257":"79123456", "+258":"821234567",
+"+252":"612345678", "+253":"77123456", "+257":"79123456", "+258":"821234567",
   "+260":"971234567", "+261":"321234567", "+262":"692123456", "+263":"771234567",
   "+264":"811234567", "+265":"881234567", "+266":"50123456", "+267":"71123456",
   "+268":"76123456", "+269":"3212345", "+290":"22123", "+291":"7123456",
@@ -538,8 +536,8 @@ function updatePhonePlaceholder(){
   if(!code || !phone) return;
   const example = phoneExamples[code.value] || "123456789";
   phone.placeholder = currentLang === "ar"
-    ? `مثال: ${example}`
-    : `Example: ${example}`;
+    ? مثال: ${example}
+    : Example: ${example};
 }
 
 function initCallingCodes(){
@@ -550,7 +548,7 @@ function initCallingCodes(){
     o.value=code;
     o.dataset.ar=ar;
     o.dataset.en=en;
-    o.textContent=currentLang==="ar" ? `${code} - ${ar}` : `${code} - ${en}`;
+    o.textContent=currentLang==="ar" ? ${code} - ${ar} : ${code} - ${en};
     select.appendChild(o);
   });
   select.value="+20";
@@ -561,8 +559,8 @@ function updateCallingCodeLanguage(){
   if(!select) return;
   Array.from(select.options).forEach(o=>{
     o.textContent=currentLang==="ar"
-      ? `${o.value} - ${o.dataset.ar}`
-      : `${o.value} - ${o.dataset.en}`;
+      ? ${o.value} - ${o.dataset.ar}
+      : ${o.value} - ${o.dataset.en};
   });
 }
 
@@ -581,7 +579,7 @@ function setLanguage(lang){
   const textMap={
     topTitle:"topTitle",brandTitle:"brand",academicTitle:"academicTitle",academicDesc:"academicDesc",
     generalTitle:"generalTitle",generalDesc:"generalDesc",ukviDivider:"ukviDivider",ukviTitle:"ukviTitle",
-    ukviDesc:"ukviDesc",locationTitle:"locationTitle",locationDesc:"locationDesc",
+ukviDesc:"ukviDesc",locationTitle:"locationTitle",locationDesc:"locationDesc",
     countryLabel:"countryLabel",regionLabel:"regionLabel",backLocationBtn:"back",
     nextLocationBtn:"next",userTitle:"userTitle",userDesc:"userDesc",nameLabel:"nameLabel",
     phoneLabel:"phoneLabel",emailLabel:"emailLabel",birthLabel:"birthLabel",scoreLabel:"scoreLabel",
@@ -686,7 +684,7 @@ function downloadSingleCSV(data){
   const row=[data.date,data.certificate,data.country,data.region,data.countryCode,data.phone,data.name,data.email,data.birth,data.score];
   const csv="\\uFEFF"+[headers,row].map(r=>r.map(escapeCSV).join(",")).join("\n");
   const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
-  const url=URL.createObjectURL(blob);
+const url=URL.createObjectURL(blob);
   const a=document.createElement("a");
   a.href=url;
   a.download="ielts_registration_"+Date.now()+".csv";
@@ -711,7 +709,7 @@ async function finish(){
 
   const fullPhone = phoneCodeEl.value.trim() + phoneEl.value.trim().replace(/^0+/,"");
 
-  if(!nameEl.value.trim() || !phoneEl.value.trim() || !emailEl.value.trim() || !birthEl.value || !scoreEl.value){
+  if(!nameEl.value.trim()  !phoneEl.value.trim()  !emailEl.value.trim()  !birthEl.value  !scoreEl.value){
     userErrorEl.textContent=t.required;
     userErrorEl.style.display="block";
     return;
@@ -719,13 +717,16 @@ async function finish(){
 
   userErrorEl.style.display="none";
 
-  if(!/^[0-9]{7,15}$/.test(fullPhone.replace("+",""))){
+  const cleanPhone=phoneEl.value.replace(/[\\s()\\-]/g,"");
+  const fullPhone=phoneCodeEl.value+cleanPhone;
+
+  if(!/^\\+[0-9]{7,15}$/.test(fullPhone)){
     userErrorEl.textContent=t.phoneError;
     userErrorEl.style.display="block";
     return;
   }
 
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailEl.value.trim())){
+  if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(emailEl.value.trim())){
     userErrorEl.textContent=t.emailError;
     userErrorEl.style.display="block";
     return;
@@ -803,8 +804,12 @@ async function finish(){
       const waUrl="https://wa.me/"+cleanWhatsAppNumber+"?text="+encodeURIComponent(text);
       window.location.assign(waUrl);
     }
-
-  }catch(err){
+WhatsApp.com
+Open WhatsApp
+WhatsApp Messenger: More than 2 billion people
+          in over 180 countries use WhatsApp to stay in touch with friends and
+          family, anytim...
+}catch(err){
     console.error("Unexpected error:",err);
     userErrorEl.textContent=t.unexpected;
     userErrorEl.style.display="block";
