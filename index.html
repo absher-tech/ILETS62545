@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل اختبار IELTS</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Tahoma,Arial,sans-serif;background:#f8d0d9;color:#3d176f;min-height:100vh}
+.page{width:100%;max-width:720px;margin:auto;min-height:100vh;padding:24px 18px 45px}
+.top-title{text-align:center;font-size:21px;font-weight:700;line-height:1.5;color:#57307e;margin:5px 0 25px}
+.brand{text-align:right;font-size:23px;font-weight:800;margin:0 12px 28px;color:#3f116f}
+.cards{display:flex;flex-direction:column;gap:22px}
+.card{position:relative;background:#fff;border-radius:14px;padding:48px 35px 28px 48px;min-height:255px;box-shadow:0 6px 10px rgba(61,20,82,.25);overflow:hidden;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 9px 18px rgba(61,20,82,.28)}
+.card .icon{position:absolute;top:28px;right:29px;font-size:39px}
+.card .arrow{position:absolute;left:19px;top:50%;transform:translateY(-50%);font-size:50px;line-height:1;color:#6510a9}
+.card h2{margin:14px 25px 14px 0;text-align:right;color:#5710a4;text-decoration:underline;font-size:25px;line-height:1.55}
+.card p{margin:0 20px 0 0;text-align:right;color:#25112e;font-size:17px;font-weight:700;line-height:1.85}
+.divider-title{text-align:right;font-size:20px;font-weight:800;color:#3f106d;margin:4px 30px 0}
+.form-page{display:none}.form-page.active{display:block}
+.form-card{background:#fff;border-radius:14px;padding:28px;box-shadow:0 6px 10px rgba(61,20,82,.25)}
+.form-card h2{color:#5710a4;margin-top:0}.form-card>p{color:#555;line-height:1.7}
+label{display:block;font-weight:bold;margin:15px 0 7px;color:#3f106d}
+input,select{width:100%;padding:14px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none;background:#fff}
+input:focus,select:focus{border-color:#7117b6;box-shadow:0 0 0 3px #7117b615}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}
+.phone-row{display:grid;grid-template-columns:120px 1fr;gap:8px;direction:ltr}
+.phone-code{direction:ltr;text-align:center;background:#f5f2f6;color:#4d176f;font-weight:bold}
+.phone-number{direction:ltr;text-align:left}
+.actions{display:flex;gap:10px;margin-top:25px}
+button{border:0;border-radius:10px;padding:14px 20px;font-size:16px;font-weight:bold;cursor:pointer}
+.next{background:#6110a3;color:#fff;flex:1}.back{background:#eee;color:#40106c}
+.error{display:none;color:#c51635;font-size:13px;font-weight:bold;margin-top:10px}
+.progress{display:flex;justify-content:center;gap:8px;margin-bottom:20px}
+.dot{width:12px;height:12px;border-radius:50%;background:#d9a8b6}.dot.active{background:#6110a3}
+.note{background:#fff6f8;padding:12px;border-radius:10px;font-size:12px;line-height:1.7;color:#633}
+.success-icon{font-size:60px}
+@media(max-width:600px){
+.page{padding:15px 12px 35px}.main-heading{font-size:26px}.top-title{font-size:18px}.brand{font-size:21px}
+.card{min-height:0;padding:55px 28px 25px 43px}.card h2{font-size:22px;margin-right:10px}
+.card p{font-size:15px;margin-right:8px}.card .icon{right:20px;top:20px;font-size:34px}
+.card .arrow{left:12px;font-size:43px}.divider-title{font-size:18px;margin-right:18px}
+.grid{grid-template-columns:1fr}.phone-row{grid-template-columns:105px 1fr}
+}
+
+.main-heading{font-size:32px;font-weight:800;color:#24103f;margin:4px 0 22px;line-height:1.2}
+.lang-switch{
+  display:flex;justify-content:flex-start;gap:8px;margin:0 0 18px;
+}
+.lang-btn{
+  background:#fff;color:#5710a4;border:1px solid #d8bfdc;padding:8px 14px;
+  border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;
+}
+.lang-btn.active{background:#6110a3;color:#fff}
+
+</style>
+</head>
+<body>
+<div class="page">
+<div class="lang-switch">
+  <button id="arBtn" class="lang-btn active" onclick="setLanguage('ar')">العربية</button>
+  <button id="enBtn" class="lang-btn" onclick="setLanguage('en')">English</button>
+</div>
+
+<section id="choicePage" class="form-page active">
+<div class="main-heading" id="mainHeading">اختيار اختبار الآيلتس</div>
+<div class="top-title" id="topTitle">ما هو اختبار الآيلتس الذي ترغب في إجرائه؟</div>
+<div class="brand" id="brandTitle">آيلتس</div>
+<div class="cards">
+
+<div class="card" onclick="chooseCertificate('academic')">
+<div class="icon">🎓</div><div class="arrow">‹</div>
+<h2 data-i18n="academicTitle">امتحان "IELTS" الأكاديمي</h2>
+<p data-i18n="academicDesc">خذ هذا الاختبار إذا كنت ترغب في الدراسة على مستوى البكالوريوس أو الدراسات العليا، أو الانضمام إلى منظمة مهنية في أي مكان في العالم.</p>
+</div>
+
+<div class="card" onclick="chooseCertificate('general')">
+<div class="icon">💼</div><div class="arrow">‹</div>
+<h2 data-i18n="generalTitle">اختبار الآيلتس للتدريب العام</h2>
+<p data-i18n="generalDesc">خذ هذا الاختبار إذا كنت ترغب في الدراسة على مستوى أقل من الدرجة أو العمل في أي مكان في العالم.</p>
+</div>
+
+<div class="divider-title" id="ukviDivider">امتحان "IELTS" للتأشيرات في المملكة المتحدة</div>
+
+<div class="card" onclick="chooseCertificate('ukvi')">
+<div class="icon">🏅</div><div class="arrow">‹</div>
+<h2 data-i18n="ukviTitle">امتحان "IELTS" للتأشيرات في المملكة المتحدة UKVI</h2>
+<p data-i18n="ukviDesc">وافقت حكومة المملكة المتحدة على اختبارات اللغة الإنجليزية الآمنة لأولئك الذين يحتاجون إلى تأشيرة عمل / زوج، أو الذين يخططون لدراسة دورة دون مستوى الشهادة، أو في مؤسسة بريطانية غير معترف بها من قبل UKVI.</p>
+</div>
+</div>
+</section>
+
+<section id="locationPage" class="form-page">
+<div class="progress"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+<div class="form-card">
+<h2 id="locationTitle">الدولة والمنطقة</h2>
+<p id="locationDesc">حدد الدولة والمنطقة التي ترغب في التسجيل فيها.</p>
+
+<label id="countryLabel">الدولة</label>
+<select id="country" onchange="loadRegions()">
+<option value="">اختر الدولة</option>
+<option value="مصر" data-code="+20" data-en="Egypt">مصر</option>
+<option value="السعودية" data-code="+966" data-en="Saudi Arabia">السعودية</option>
+<option value="الإمارات" data-code="+971" data-en="United Arab Emirates">الإمارات</option>
+<option value="الكويت" data-code="+965" data-en="Kuwait">الكويت</option>
+<option value="قطر" data-code="+974" data-en="Qatar">قطر</option>
+<option value="الأردن" data-code="+962" data-en="Jordan">الأردن</option>
+</select>
+
+<label id="regionLabel">المنطقة / المحافظة</label>
+<select id="region"><option value="">اختر المنطقة</option></select>
+
+<div id="locError" class="error">من فضلك اختر الدولة والمنطقة.</div>
+<div class="actions">
+<button class="back" id="backLocationBtn" onclick="show('choicePage')">السابق</button>
+<button class="next" id="nextLocationBtn" onclick="goToUser()">التالي</button>
+</div>
+</div>
+</section>
+
+<section id="userPage" class="form-page">
+<div class="progress"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+<div class="form-card">
+<h2 id="userTitle">بيانات المستخدم</h2>
+<p id="userDesc">أدخل بيانات العميل لإكمال التسجيل.</p>
+
+<label id="nameLabel">الاسم بالكامل</label>
+<input id="name" placeholder="اكتب الاسم بالكامل">
+
+<label id="phoneLabel">رقم الهاتف</label>
+<div class="phone-row">
+<select id="phoneCode" class="phone-code" aria-label="Country calling code"></select>
+<input id="phone" class="phone-number" type="tel" inputmode="numeric" placeholder="123456789">
+</div>
+
+<label id="emailLabel">البريد الإلكتروني</label>
+<input id="email" type="email" placeholder="example@email.com">
+
+<label id="birthLabel">تاريخ الميلاد</label>
+<input id="birth" type="date">
+
+<label id="scoreLabel">درجة النجاح (1 - 9)</label>
+<select id="score">
+<option value="">اختر الدرجة</option>
+<option>1</option><option>2</option><option>3</option><option>4</option>
+<option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+</select>
+<div id="userError" class="error">من فضلك أكمل كل البيانات المطلوبة.</div>
+
+<div class="actions">
+<button class="back" id="backUserBtn" onclick="show('locationPage')">السابق</button>
+<button class="next" id="finishBtn" onclick="finish()">تأكيد وإرسال ✓</button>
+</div>
+</div>
+</section>
+
+<section id="donePage" class="form-page">
+<div class="form-card" style="text-align:center">
+<div class="success-icon">✓</div>
+<h2 id="doneTitle">تم تسجيل الطلب</h2>
+<p id="summary"></p>
+<div class="actions"><button class="next" id="newRegistrationBtn" onclick="location.reload()">تسجيل جديد</button></div>
+</div>
+</section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+const WHATSAPP_NUMBER = "+966576113600";
+
+/* Supabase */
+const SUPABASE_URL = "https://siqdijcrcymhqbbzocdc.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_y8VnfIbhrpQEssVzy5JjVA_iYaiWVXF";
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+let certificate = "";
+
+const regionData = {
+  "مصر": {
+    code:"+20", en:"Egypt",
+    regions:[
+      ["القاهرة","Cairo"],["الجيزة","Giza"],["الإسكندرية","Alexandria"],["القليوبية","Qalyubia"],
+      ["الدقهلية","Dakahlia"],["الشرقية","Sharqia"],["الغربية","Gharbia"],["المنوفية","Monufia"],
+      ["البحيرة","Beheira"],["كفر الشيخ","Kafr El Sheikh"],["دمياط","Damietta"],["بورسعيد","Port Said"],
+      ["الإسماعيلية","Ismailia"],["السويس","Suez"],["الفيوم","Fayoum"],["بني سويف","Beni Suef"],
+      ["المنيا","Minya"],["أسيوط","Assiut"],["سوهاج","Sohag"],["قنا","Qena"],["الأقصر","Luxor"],
+      ["أسوان","Aswan"],["مطروح","Matrouh"],["الوادي الجديد","New Valley"],["شمال سيناء","North Sinai"],
+      ["جنوب سيناء","South Sinai"],["البحر الأحمر","Red Sea"]
+    ]
+  },
+  "السعودية": {
+    code:"+966", en:"Saudi Arabia",
+    regions:[["الرياض","Riyadh"],["مكة المكرمة","Makkah"],["المدينة المنورة","Madinah"],["القصيم","Qassim"],
+    ["المنطقة الشرقية","Eastern Province"],["عسير","Asir"],["تبوك","Tabuk"],["حائل","Hail"],
+    ["جازان","Jazan"],["نجران","Najran"],["الباحة","Al Bahah"],["الجوف","Al Jawf"]]
+  },
+  "الإمارات": {
+    code:"+971", en:"United Arab Emirates",
+    regions:[["أبوظبي","Abu Dhabi"],["دبي","Dubai"],["الشارقة","Sharjah"],["عجمان","Ajman"],
+    ["أم القيوين","Umm Al Quwain"],["رأس الخيمة","Ras Al Khaimah"],["الفجيرة","Fujairah"]]
+  },
+  "الكويت": {
+    code:"+965", en:"Kuwait",
+    regions:[["العاصمة","Capital"],["حولي","Hawalli"],["الفروانية","Farwaniya"],["الجهراء","Jahra"],
+    ["مبارك الكبير","Mubarak Al-Kabeer"],["الأحمدي","Ahmadi"]]
+  },
+  "قطر": {
+    code:"+974", en:"Qatar",
+    regions:[["الدوحة","Doha"],["الريان","Al Rayyan"],["الوكرة","Al Wakrah"],["أم صلال","Umm Salal"],
+    ["الخور","Al Khor"],["الشمال","Al Shamal"]]
+  },
+  "الأردن": {
+    code:"+962", en:"Jordan",
+    regions:[["عمّان","Amman"],["إربد","Irbid"],["الزرقاء","Zarqa"],["البلقاء","Balqa"],
+    ["الكرك","Karak"],["الطفيلة","Tafilah"],["معان","Ma'an"],["العقبة","Aqaba"],
+    ["جرش","Jerash"],["عجلون","Ajloun"],["مادبا","Madaba"],["المفرق","Mafraq"]]
+  }
+};
+
+function show(id){
+document.querySelectorAll(".form-page").forEach(x=>x.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+let currentLang = "ar";
+
+const i18n = {
+  ar:{
+    dir:"rtl", lang:"ar",
+    mainHeading:"اختيار اختبار الآيلتس", topTitle:"ما هو اختبار الآيلتس الذي ترغب في إجرائه؟",
+    brand:"آيلتس",
+    academicTitle:'امتحان "IELTS" الأكاديمي',
+    academicDesc:"خذ هذا الاختبار إذا كنت ترغب في الدراسة على مستوى البكالوريوس أو الدراسات العليا، أو الانضمام إلى منظمة مهنية في أي مكان في العالم.",
+    generalTitle:"اختبار الآيلتس للتدريب العام",
+    generalDesc:"خذ هذا الاختبار إذا كنت ترغب في الدراسة على مستوى أقل من الدرجة أو العمل في أي مكان في العالم.",
+    ukviDivider:'امتحان "IELTS" للتأشيرات في المملكة المتحدة',
+    ukviTitle:'امتحان "IELTS" للتأشيرات في المملكة المتحدة UKVI',
+    ukviDesc:"وافقت حكومة المملكة المتحدة على اختبارات اللغة الإنجليزية الآمنة لأولئك الذين يحتاجون إلى تأشيرة عمل / زوج، أو الذين يخططون لدراسة دورة دون مستوى الشهادة، أو في مؤسسة بريطانية غير معترف بها من قبل UKVI.",
+    locationTitle:"الدولة والمنطقة", locationDesc:"حدد الدولة والمنطقة التي ترغب في التسجيل فيها.",
+    countryLabel:"الدولة", regionLabel:"المنطقة / المحافظة",
+    chooseCountry:"اختر الدولة", chooseRegion:"اختر المنطقة",
+    locError:"من فضلك اختر الدولة والمنطقة.",
+    back:"السابق", next:"التالي",
+    userTitle:"بيانات المستخدم", userDesc:"أدخل بيانات العميل لإكمال التسجيل.",
+    nameLabel:"الاسم بالكامل", phoneLabel:"رقم الهاتف", emailLabel:"البريد الإلكتروني",
+    birthLabel:"تاريخ الميلاد", scoreLabel:"درجة النجاح (1 - 9)", chooseScore:"اختر الدرجة",
+    required:"من فضلك أكمل كل البيانات المطلوبة.", phoneError:"من فضلك اكتب رقم هاتف صحيح.",
+    saveError:"لم يتم حفظ التسجيل. خطأ قاعدة البيانات: ",
+    unexpected:"حصل خطأ أثناء الحفظ. افتح الموقع من جديد وحاول مرة أخرى.",
+    confirm:"تأكيد وإرسال ✓", saving:"جاري الحفظ...",
+    doneTitle:"تم تسجيل الطلب", newRegistration:"تسجيل جديد",
+    waTitle:"طلب تسجيل IELTS", certificate:"الشهادة", country:"الدولة", region:"المنطقة",
+    phone:"الهاتف", name:"الاسم", email:"البريد", birth:"تاريخ الميلاد", score:"درجة النجاح"
+  },
+  en:{
+    dir:"ltr", lang:"en",
+    mainHeading:"Choose your IELTS test", topTitle:"Which IELTS test would you like to take?",
+    brand:"IELTS",
+    academicTitle:'"IELTS" Academic',
+    academicDesc:"Take this test if you want to study at undergraduate or postgraduate level, or join a professional organisation anywhere in the world.",
+    generalTitle:"IELTS General Training",
+    generalDesc:"Take this test if you want to study at below degree level or work anywhere in the world.",
+    ukviDivider:"IELTS for UK Visas",
+    ukviTitle:'"IELTS" for UK Visas',
+    ukviDesc:"UK government approved Secure English Language Tests for those who need a Work / Spouse Visa, or who are planning to study a course below degree level, or at a UK institution not recognised by UKVI.",
+    locationTitle:"Country and Region", locationDesc:"Select the country and region where you would like to register.",
+    countryLabel:"Country", regionLabel:"Region / Governorate",
+    chooseCountry:"Choose country", chooseRegion:"Choose region",
+    locError:"Please select a country and region.",
+    back:"Back", next:"Next",
+    userTitle:"User Information", userDesc:"Enter the customer's details to complete the registration.",
+    nameLabel:"Full Name", phoneLabel:"Phone Number", emailLabel:"Email Address",
+    birthLabel:"Date of Birth", scoreLabel:"Passing Score (1 - 9)", chooseScore:"Choose score",
+    required:"Please complete all required fields.", phoneError:"Please enter a valid phone number.", emailError:"Please enter a valid email address.",
+    saveError:"The registration could not be saved. Database error: ",
+    unexpected:"An error occurred while saving. Please reopen the website and try again.",
+    confirm:"Confirm & Send ✓", saving:"Saving...",
+    doneTitle:"Registration Completed", newRegistration:"New Registration",
+    waTitle:"IELTS Registration", certificate:"Certificate", country:"Country", region:"Region",
+    phone:"Phone", name:"Name", email:"Email", birth:"Date of Birth", score:"Passing Score"
+  }
+};
+
+const callingCodes = [
+  ["+20","مصر","Egypt"],
+  ["+966","السعودية","Saudi Arabia"],
+  ["+971","الإمارات","United Arab Emirates"],
+  ["+965","الكويت","Kuwait"],
+  ["+974","قطر","Qatar"],
+  ["+962","الأردن","Jordan"],
+  ["+1","الولايات المتحدة وكندا","United States & Canada"],
+  ["+44","المملكة المتحدة","United Kingdom"],
+  ["+49","ألمانيا","Germany"],
+  ["+33","فرنسا","France"],
+  ["+39","إيطاليا","Italy"],
+  ["+34","إسبانيا","Spain"],
+  ["+31","هولندا","Netherlands"],
+  ["+32","بلجيكا","Belgium"],
+  ["+41","سويسرا","Switzerland"],
+  ["+43","النمسا","Austria"],
+  ["+45","الدنمارك","Denmark"],
+  ["+46","السويد","Sweden"],
+  ["+47","النرويج","Norway"],
+  ["+48","بولندا","Poland"],
+  ["+30","اليونان","Greece"],
+  ["+351","البرتغال","Portugal"],
+  ["+353","أيرلندا","Ireland"],
+  ["+358","فنلندا","Finland"],
+  ["+420","التشيك","Czech Republic"],
+  ["+36","المجر","Hungary"],
+  ["+40","رومانيا","Romania"],
+  ["+359","بلغاريا","Bulgaria"],
+  ["+385","كرواتيا","Croatia"],
+  ["+381","صربيا","Serbia"],
+  ["+380","أوكرانيا","Ukraine"],
+  ["+7","روسيا وكازاخستان","Russia & Kazakhstan"],
+  ["+90","تركيا","Turkey"],
+  ["+972","فلسطين / إسرائيل","Palestine / Israel"],
+  ["+961","لبنان","Lebanon"],
+  ["+963","سوريا","Syria"],
+  ["+964","العراق","Iraq"],
+  ["+98","إيران","Iran"],
+  ["+212","المغرب","Morocco"],
+  ["+213","الجزائر","Algeria"],
+  ["+216","تونس","Tunisia"],
+  ["+218","ليبيا","Libya"],
+  ["+249","السودان","Sudan"],
+  ["+251","إثيوبيا","Ethiopia"],
+  ["+254","كينيا","Kenya"],
+  ["+255","تنزانيا","Tanzania"],
+  ["+256","أوغندا","Uganda"],
+  ["+27","جنوب أفريقيا","South Africa"],
+  ["+234","نيجيريا","Nigeria"],
+  ["+233","غانا","Ghana"],
+  ["+220","غامبيا","Gambia"],
+  ["+221","السنغال","Senegal"],
+  ["+225","ساحل العاج","Côte d'Ivoire"],
+  ["+226","بوركينا فاسو","Burkina Faso"],
+  ["+227","النيجر","Niger"],
+  ["+228","توجو","Togo"],
+  ["+229","بنين","Benin"],
+  ["+230","موريشيوس","Mauritius"],
+  ["+231","ليبيريا","Liberia"],
+  ["+232","سيراليون","Sierra Leone"],
+  ["+235","تشاد","Chad"],
+  ["+236","أفريقيا الوسطى","Central African Republic"],
+  ["+237","الكاميرون","Cameroon"],
+  ["+238","الرأس الأخضر","Cape Verde"],
+  ["+239","ساو تومي وبرينسيب","São Tomé and Príncipe"],
+  ["+240","غينيا الاستوائية","Equatorial Guinea"],
+  ["+241","الغابون","Gabon"],
+  ["+242","الكونغو","Republic of the Congo"],
+  ["+243","الكونغو الديمقراطية","DR Congo"],
+  ["+244","أنغولا","Angola"],
+  ["+245","غينيا بيساو","Guinea-Bissau"],
+  ["+246","إقليم المحيط الهندي البريطاني","British Indian Ocean Territory"],
+  ["+247","أسينشن","Ascension"],
+  ["+248","سيشل","Seychelles"],
+  ["+249","السودان","Sudan"],
+  ["+250","رواندا","Rwanda"],
+  ["+252","الصومال","Somalia"],
+  ["+253","جيبوتي","Djibouti"],
+  ["+257","بوروندي","Burundi"],
+  ["+258","موزمبيق","Mozambique"],
+  ["+260","زامبيا","Zambia"],
+  ["+261","مدغشقر","Madagascar"],
+  ["+262","ريونيون ومايوت","Réunion & Mayotte"],
+  ["+263","زيمبابوي","Zimbabwe"],
+  ["+264","ناميبيا","Namibia"],
+  ["+265","مالاوي","Malawi"],
+  ["+266","ليسوتو","Lesotho"],
+  ["+267","بوتسوانا","Botswana"],
+  ["+268","إسواتيني","Eswatini"],
+  ["+269","جزر القمر","Comoros"],
+  ["+290","سانت هيلينا","Saint Helena"],
+  ["+291","إريتريا","Eritrea"],
+  ["+297","أروبا","Aruba"],
+  ["+298","جزر فارو","Faroe Islands"],
+  ["+299","جرينلاند","Greenland"],
+  ["+350","جبل طارق","Gibraltar"],
+  ["+352","لوكسمبورغ","Luxembourg"],
+  ["+354","آيسلندا","Iceland"],
+  ["+356","مالطا","Malta"],
+  ["+357","قبرص","Cyprus"],
+  ["+370","ليتوانيا","Lithuania"],
+  ["+371","لاتفيا","Latvia"],
+  ["+372","إستونيا","Estonia"],
+  ["+373","مولدوفا","Moldova"],
+  ["+374","أرمينيا","Armenia"],
+  ["+375","بيلاروس","Belarus"],
+  ["+376","أندورا","Andorra"],
+  ["+377","موناكو","Monaco"],
+  ["+378","سان مارينو","San Marino"],
+  ["+379","الفاتيكان","Vatican City"],
+  ["+382","الجبل الأسود","Montenegro"],
+  ["+383","كوسوفو","Kosovo"],
+  ["+387","البوسنة والهرسك","Bosnia and Herzegovina"],
+  ["+389","مقدونيا الشمالية","North Macedonia"],
+  ["+386","سلوفينيا","Slovenia"],
+  ["+421","سلوفاكيا","Slovakia"],
+  ["+423","ليختنشتاين","Liechtenstein"],
+  ["+55","البرازيل","Brazil"],
+  ["+52","المكسيك","Mexico"],
+  ["+54","الأرجنتين","Argentina"],
+  ["+56","تشيلي","Chile"],
+  ["+57","كولومبيا","Colombia"],
+  ["+51","بيرو","Peru"],
+  ["+58","فنزويلا","Venezuela"],
+  ["+591","بوليفيا","Bolivia"],
+  ["+593","الإكوادور","Ecuador"],
+  ["+595","باراغواي","Paraguay"],
+  ["+598","أوروغواي","Uruguay"],
+  ["+592","غيانا","Guyana"],
+  ["+597","سورينام","Suriname"],
+  ["+500","جزر فوكلاند","Falkland Islands"],
+  ["+509","هايتي","Haiti"],
+  ["+53","كوبا","Cuba"],
+  ["+502","غواتيمالا","Guatemala"],
+  ["+503","السلفادور","El Salvador"],
+  ["+504","هندوراس","Honduras"],
+  ["+505","نيكاراغوا","Nicaragua"],
+  ["+506","كوستاريكا","Costa Rica"],
+  ["+507","بنما","Panama"],
+  ["+509","هايتي","Haiti"],
+  ["+501","بليز","Belize"],
+  ["+61","أستراليا","Australia"],
+  ["+64","نيوزيلندا","New Zealand"],
+  ["+81","اليابان","Japan"],
+  ["+82","كوريا الجنوبية","South Korea"],
+  ["+86","الصين","China"],
+  ["+91","الهند","India"],
+  ["+92","باكستان","Pakistan"],
+  ["+93","أفغانستان","Afghanistan"],
+  ["+94","سريلانكا","Sri Lanka"],
+  ["+95","ميانمار","Myanmar"],
+  ["+880","بنغلاديش","Bangladesh"],
+  ["+977","نيبال","Nepal"],
+  ["+960","المالديف","Maldives"],
+  ["+62","إندونيسيا","Indonesia"],
+  ["+63","الفلبين","Philippines"],
+  ["+60","ماليزيا","Malaysia"],
+  ["+65","سنغافورة","Singapore"],
+  ["+66","تايلاند","Thailand"],
+  ["+84","فيتنام","Vietnam"],
+  ["+852","هونغ كونغ","Hong Kong"],
+  ["+853","ماكاو","Macau"],
+  ["+886","تايوان","Taiwan"],
+  ["+673","بروناي","Brunei"],
+  ["+675","بابوا غينيا الجديدة","Papua New Guinea"],
+  ["+679","فيجي","Fiji"],
+  ["+685","ساموا","Samoa"],
+  ["+676","تونغا","Tonga"],
+  ["+677","جزر سليمان","Solomon Islands"],
+  ["+678","فانواتو","Vanuatu"],
+  ["+686","كيريباتي","Kiribati"],
+  ["+688","توفالو","Tuvalu"],
+  ["+689","بولينيزيا الفرنسية","French Polynesia"],
+  ["+691","ميكرونيزيا","Micronesia"],
+  ["+692","جزر مارشال","Marshall Islands"],
+  ["+850","كوريا الشمالية","North Korea"],
+  ["+670","تيمور الشرقية","Timor-Leste"],
+  ["+968","عُمان","Oman"],
+  ["+967","اليمن","Yemen"],
+  ["+973","البحرين","Bahrain"],
+  ["+98","إيران","Iran"],
+  ["+992","طاجيكستان","Tajikistan"],
+  ["+993","تركمانستان","Turkmenistan"],
+  ["+994","أذربيجان","Azerbaijan"],
+  ["+995","جورجيا","Georgia"],
+  ["+996","قيرغيزستان","Kyrgyzstan"],
+  ["+998","أوزبكستان","Uzbekistan"],
+  ["+971","الإمارات","United Arab Emirates"],
+  ["+972","فلسطين / إسرائيل","Palestine / Israel"]
+];
+
+
+const phoneExamples = {
+  "+20":"1012345678", "+966":"512345678", "+971":"501234567", "+965":"51234567",
+  "+974":"33123456", "+962":"791234567", "+1":"2025550123", "+44":"7123456789",
+  "+49":"15123456789", "+33":"612345678", "+39":"3123456789", "+34":"612345678",
+  "+31":"612345678", "+32":"471234567", "+41":"791234567", "+43":"6641234567",
+  "+45":"20123456", "+46":"701234567", "+47":"91234567", "+48":"512345678",
+  "+30":"6912345678", "+351":"912345678", "+353":"851234567", "+358":"401234567",
+  "+420":"601234567", "+36":"301234567", "+40":"712345678", "+359":"881234567",
+  "+385":"912345678", "+381":"601234567", "+380":"501234567", "+7":"9123456789",
+  "+90":"5321234567", "+972":"501234567", "+961":"71123456", "+963":"912345678",
+  "+964":"7512345678", "+98":"9123456789", "+212":"612345678", "+213":"551234567",
+  "+216":"20123456", "+218":"912345678", "+249":"911234567", "+251":"911234567",
+  "+254":"712345678", "+255":"712345678", "+256":"712345678", "+27":"821234567",
+  "+234":"8012345678", "+233":"241234567", "+220":"3012345", "+221":"771234567",
+  "+225":"0712345678", "+226":"70123456", "+227":"90123456", "+228":"90123456",
+  "+229":"90123456", "+230":"51234567", "+231":"770123456", "+232":"76123456",
+  "+235":"63012345", "+236":"70012345", "+237":"612345678", "+238":"9912345",
+  "+239":"9812345", "+240":"222123456", "+241":"061234567", "+242":"061234567",
+  "+243":"812345678", "+244":"923123456", "+245":"955123456", "+246":"3801234",
+  "+247":"40123", "+248":"2512345", "+249":"911234567", "+250":"788123456",
+  "+252":"612345678", "+253":"77123456", "+257":"79123456", "+258":"821234567",
+  "+260":"971234567", "+261":"321234567", "+262":"692123456", "+263":"771234567",
+  "+264":"811234567", "+265":"881234567", "+266":"50123456", "+267":"71123456",
+  "+268":"76123456", "+269":"3212345", "+290":"22123", "+291":"7123456",
+  "+297":"5601234", "+298":"211234", "+299":"221234", "+350":"54012345",
+  "+352":"621123456", "+354":"6123456", "+356":"99123456", "+357":"96123456",
+  "+370":"61234567", "+371":"21234567", "+372":"51234567", "+373":"62123456",
+  "+374":"77123456", "+375":"291234567", "+376":"312345", "+377":"612345678",
+  "+378":"99123456", "+379":"066981234", "+381":"601234567", "+382":"67123456",
+  "+383":"44123456", "+386":"31123456", "+387":"61123456", "+389":"71234567",
+  "+421":"901234567", "+423":"6601234", "+55":"11987654321", "+52":"5512345678",
+  "+54":"91123456789", "+56":"912345678", "+57":"3012345678", "+51":"912345678",
+  "+58":"4121234567", "+591":"71234567", "+593":"991234567", "+595":"981234567",
+  "+598":"99123456", "+592":"6123456", "+597":"8123456", "+500":"51234",
+  "+509":"37123456", "+53":"51234567", "+502":"51234567", "+503":"70123456",
+  "+504":"91234567", "+505":"81234567", "+506":"61234567", "+507":"61234567",
+  "+501":"6221234", "+61":"412345678", "+64":"211234567", "+81":"9012345678",
+  "+82":"1012345678", "+86":"13800138000", "+91":"9876543210", "+92":"3012345678",
+  "+93":"701234567", "+94":"712345678", "+95":"9123456789", "+880":"1712345678",
+  "+977":"9812345678", "+960":"7712345", "+62":"81234567890", "+63":"9171234567",
+  "+60":"121234567", "+65":"81234567", "+66":"812345678", "+84":"912345678",
+  "+852":"51234567", "+853":"62123456", "+886":"912345678", "+673":"7123456",
+  "+675":"70123456", "+679":"7012345", "+685":"7212345", "+676":"7712345",
+  "+677":"7412345", "+678":"5912345", "+686":"91234567", "+688":"20123",
+  "+689":"87123456", "+691":"9212345", "+692":"2351234", "+850":"1912345678",
+  "+670":"77234567", "+968":"91234567", "+967":"711234567", "+973":"36123456",
+  "+992":"917123456", "+993":"65123456", "+994":"501234567", "+995":"555123456",
+  "+996":"700123456", "+998":"901234567"
+};
+
+function updatePhonePlaceholder(){
+  const code = document.getElementById("phoneCode");
+  const phone = document.getElementById("phone");
+  if(!code || !phone) return;
+  const example = phoneExamples[code.value] || "123456789";
+  phone.placeholder = currentLang === "ar"
+    ? `مثال: ${example}`
+    : `Example: ${example}`;
+}
+
+function initCallingCodes(){
+  const select=document.getElementById("phoneCode");
+  if(!select || select.options.length) return;
+  callingCodes.forEach(([code,ar,en])=>{
+    const o=document.createElement("option");
+    o.value=code;
+    o.dataset.ar=ar;
+    o.dataset.en=en;
+    o.textContent=currentLang==="ar" ? `${code} - ${ar}` : `${code} - ${en}`;
+    select.appendChild(o);
+  });
+  select.value="+20";
+}
+
+function updateCallingCodeLanguage(){
+  const select=document.getElementById("phoneCode");
+  if(!select) return;
+  Array.from(select.options).forEach(o=>{
+    o.textContent=currentLang==="ar"
+      ? `${o.value} - ${o.dataset.ar}`
+      : `${o.value} - ${o.dataset.en}`;
+  });
+}
+
+document.getElementById("phoneCode").addEventListener("change", updatePhonePlaceholder);
+
+function setLanguage(lang){
+  currentLang = lang;
+  const t=i18n[lang];
+  document.documentElement.lang=t.lang;
+  document.documentElement.dir=t.dir;
+  document.body.dir=t.dir;
+
+  document.getElementById("arBtn").classList.toggle("active",lang==="ar");
+  document.getElementById("enBtn").classList.toggle("active",lang==="en");
+
+  const textMap={
+    topTitle:"topTitle",brandTitle:"brand",academicTitle:"academicTitle",academicDesc:"academicDesc",
+    generalTitle:"generalTitle",generalDesc:"generalDesc",ukviDivider:"ukviDivider",ukviTitle:"ukviTitle",
+    ukviDesc:"ukviDesc",locationTitle:"locationTitle",locationDesc:"locationDesc",
+    countryLabel:"countryLabel",regionLabel:"regionLabel",backLocationBtn:"back",
+    nextLocationBtn:"next",userTitle:"userTitle",userDesc:"userDesc",nameLabel:"nameLabel",
+    phoneLabel:"phoneLabel",emailLabel:"emailLabel",birthLabel:"birthLabel",scoreLabel:"scoreLabel",
+    backUserBtn:"back",finishBtn:"confirm",doneTitle:"doneTitle",
+    newRegistrationBtn:"newRegistration"
+  };
+  const mainHeading=document.getElementById("mainHeading");
+  if(mainHeading) mainHeading.textContent=t.mainHeading;
+
+  Object.entries(textMap).forEach(([id,key])=>{
+    const el=document.getElementById(id); if(el) el.textContent=t[key];
+  });
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(t[key] !== undefined) el.textContent=t[key];
+  });
+
+  const country=document.getElementById("country");
+  country.options[0].text=t.chooseCountry;
+  for(let i=1;i<country.options.length;i++){
+    country.options[i].text=country.options[i].dataset.en && lang==="en"
+      ? country.options[i].dataset.en : country.options[i].value;
+  }
+
+  const score=document.getElementById("score");
+  score.options[0].text=t.chooseScore;
+
+  const r=document.getElementById("region");
+  if(country.value) loadRegions();
+  else r.options[0].text=t.chooseRegion;
+
+  document.getElementById("locError").textContent=t.locError;
+  document.getElementById("userError").textContent=t.required;
+  initCallingCodes();
+  updateCallingCodeLanguage();
+  updatePhonePlaceholder();
+
+  document.getElementById("name").placeholder=lang==="ar" ? "اكتب الاسم بالكامل" : "Enter full name";
+  updatePhonePlaceholder();
+  document.getElementById("email").placeholder=lang==="ar" ? "example@email.com" : "example@email.com";
+}
+
+function chooseCertificate(value){
+certificate=value;
+show("locationPage");
+}
+
+const certificateLabels = {
+  academic: {
+    ar: 'امتحان "IELTS" الأكاديمي',
+    en: 'IELTS Academic'
+  },
+  general: {
+    ar: 'اختبار الآيلتس للتدريب العام',
+    en: 'IELTS General Training'
+  },
+  ukvi: {
+    ar: 'امتحان "IELTS" للتأشيرات في المملكة المتحدة UKVI',
+    en: 'IELTS for UK Visas'
+  }
+};
+
+function getCertificateLabel(lang){
+  return certificateLabels[certificate]?.[lang] || certificate;
+}
+
+function loadRegions(){
+  const select=document.getElementById("country");
+  const selected=select.options[select.selectedIndex];
+  const countryKey=select.value;
+  const item=regionData[countryKey];
+
+
+  const r=document.getElementById("region");
+  r.innerHTML='<option value="">'+(currentLang==="ar" ? "اختر المنطقة" : "Choose region")+'</option>';
+  (item?.regions||[]).forEach(pair=>{
+    const o=document.createElement("option");
+    o.value=currentLang==="ar" ? pair[0] : pair[1];
+    o.dataset.ar=pair[0];
+    o.dataset.en=pair[1];
+    o.textContent=currentLang==="ar" ? pair[0] : pair[1];
+    r.appendChild(o);
+  });
+}
+
+function goToUser(){
+if(!document.getElementById("country").value || !document.getElementById("region").value){
+  document.getElementById("locError").style.display="block";return;
+}
+document.getElementById("locError").style.display="none";
+document.getElementById("phoneCode").value=country.options[country.selectedIndex].dataset.code || "";
+show("userPage");
+}
+
+function escapeCSV(value){
+  return '"' + String(value ?? "").replace(/"/g,'""') + '"';
+}
+
+function downloadSingleCSV(data){
+  const headers=["التاريخ والوقت","الشهادة","الدولة","المنطقة","كود الدولة","رقم الهاتف","الاسم","البريد الإلكتروني","تاريخ الميلاد","درجة النجاح"];
+  const row=[data.date,data.certificate,data.country,data.region,data.countryCode,data.phone,data.name,data.email,data.birth,data.score];
+  const csv="\\uFEFF"+[headers,row].map(r=>r.map(escapeCSV).join(",")).join("\n");
+  const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="ielts_registration_"+Date.now()+".csv";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+async function finish(){
+  const countryEl = document.getElementById("country");
+  const regionEl = document.getElementById("region");
+  const phoneCodeEl = document.getElementById("phoneCode");
+  const phoneEl = document.getElementById("phone");
+  const nameEl = document.getElementById("name");
+  const emailEl = document.getElementById("email");
+  const birthEl = document.getElementById("birth");
+  const scoreEl = document.getElementById("score");
+  const userErrorEl = document.getElementById("userError");
+  const submitBtn = document.getElementById("finishBtn");
+  const t=i18n[currentLang];
+
+  const fullPhone = phoneCodeEl.value.trim() + phoneEl.value.trim().replace(/^0+/,"");
+
+  if(!nameEl.value.trim() || !phoneEl.value.trim() || !emailEl.value.trim() || !birthEl.value || !scoreEl.value){
+    userErrorEl.textContent=t.required;
+    userErrorEl.style.display="block";
+    return;
+  }
+
+  userErrorEl.style.display="none";
+
+  if(!/^[0-9]{7,15}$/.test(fullPhone.replace("+",""))){
+    userErrorEl.textContent=t.phoneError;
+    userErrorEl.style.display="block";
+    return;
+  }
+
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailEl.value.trim())){
+    userErrorEl.textContent=t.emailError;
+    userErrorEl.style.display="block";
+    return;
+  }
+
+  const data={
+    date:new Date().toISOString(),
+    language:currentLang,
+    certificate:getCertificateLabel(currentLang),
+    country:currentLang==="ar" ? countryEl.value : (regionData[countryEl.value]?.en || countryEl.value),
+    region:regionEl.options[regionEl.selectedIndex].textContent,
+    countryCode:phoneCodeEl.value,
+    phone:phoneEl.value.trim(),
+    fullPhone:fullPhone,
+    name:nameEl.value.trim(),
+    email:emailEl.value.trim(),
+    birth:birthEl.value,
+    score:scoreEl.value
+  };
+
+  submitBtn.disabled=true;
+  submitBtn.textContent=t.saving;
+
+  try{
+    const { error: dbError } = await supabaseClient
+      .from("registrations")
+      .insert([{
+        certificate:data.certificate,
+        country:data.country,
+        region:data.region,
+        country_code:data.countryCode,
+        phone:data.phone,
+        full_phone:data.fullPhone,
+        name:data.name,
+        email:data.email,
+        birth_date:data.birth,
+        score:Number(data.score)
+      }]);
+
+    if(dbError){
+      console.error("Supabase error:",dbError);
+      userErrorEl.textContent=t.saveError+(dbError.message||"");
+      userErrorEl.style.display="block";
+      submitBtn.disabled=false;
+      submitBtn.textContent=t.confirm;
+      return;
+    }
+
+    const text =
+      t.waTitle+"\n\n"+
+      t.certificate+": "+data.certificate+"\n"+
+      t.country+": "+data.country+"\n"+
+      t.region+": "+data.region+"\n"+
+      t.phone+": "+data.countryCode+" "+data.phone+"\n"+
+      t.name+": "+data.name+"\n"+
+      t.email+": "+data.email+"\n"+
+      t.birth+": "+data.birth+"\n"+
+      t.score+": "+data.score;
+
+    document.getElementById("summary").innerHTML=
+      "<b>"+t.certificate+":</b> "+data.certificate+"<br>"+
+      "<b>"+t.country+":</b> "+data.country+"<br>"+
+      "<b>"+t.region+":</b> "+data.region+"<br>"+
+      "<b>"+t.phone+":</b> "+data.countryCode+" "+data.phone+"<br>"+
+      "<b>"+t.name+":</b> "+data.name+"<br>"+
+      "<b>"+t.score+":</b> "+data.score;
+
+    show("donePage");
+
+    const cleanWhatsAppNumber = WHATSAPP_NUMBER
+      .replace(/[^0-9]/g,"")
+      .replace(/^00/,"");
+
+    if(cleanWhatsAppNumber){
+      const waUrl="https://wa.me/"+cleanWhatsAppNumber+"?text="+encodeURIComponent(text);
+      window.location.assign(waUrl);
+    }
+
+  }catch(err){
+    console.error("Unexpected error:",err);
+    userErrorEl.textContent=t.unexpected;
+    userErrorEl.style.display="block";
+    submitBtn.disabled=false;
+    submitBtn.textContent=t.confirm;
+  }
+}
+
+initCallingCodes();
+setLanguage("ar");
+updatePhonePlaceholder();
+</script>
+</body>
+</html>
